@@ -16,7 +16,7 @@ export default function Prayer({ img, salat, time, sizeheight }) {
                     <Typography gutterBottom variant="h5" >
                         {salat}
                     </Typography>
-                    <Typography variant="h3" >
+                    <Typography variant="h2" >
                         {time}
                     </Typography>
                 </CardContent>
