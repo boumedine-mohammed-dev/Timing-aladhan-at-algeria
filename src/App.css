@@ -1,0 +1,29 @@
+html {
+  direction: rtl;
+}
+
+body {
+  color: white;
+  background-image: url('/public/img/background.png');
+  background-size: cover;
+}
+
+
+
+
+
+
+
+
+.read-the-docs {
+  color: #888;
+}
+
+.MuiOutlinedInput-notchedOutline {
+  border-color: white !important;
+
+}
+
+.MuiSvgIcon-root {
+  color: white !important;
+}
