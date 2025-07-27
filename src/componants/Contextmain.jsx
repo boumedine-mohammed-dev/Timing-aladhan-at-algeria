@@ -36,31 +36,22 @@ export default function Contextmain() {
         { key: "Sunset", displayname: "المغرب" },
         { key: "Isha", displayname: "العشاء" },
     ]
-    const [sizeofweb, setsizeofweb] = useState(0);
+    const [sizeofweb, setsizeofweb] = useState({ sizemargin: 0, sizeHeight: "180" });
     const isMobile = useMediaQuery({ maxWidth: 767 });
     const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1023 });
-    const NestHub = useMediaQuery({ minWidth: 1024, minHeight: 600 });
-    const NestHubmax = useMediaQuery({ minWidth: 1280, minHeight: 800 });
-    const isDesktop = useMediaQuery({ minWidth: 1281 });
+    const isDesktop = useMediaQuery({ minWidth: 1024 });
 
     useEffect(() => {
         if (isDesktop) {
-            setsizeofweb(0);
-        }
-        else if (NestHub) {
-            setsizeofweb(110)
-        } else if (NestHubmax) {
-            setsizeofweb(90)
+            setsizeofweb({ sizemargin: 0, sizeHeight: "180" });
         } else if (isTablet) {
-            setsizeofweb(90)
+            setsizeofweb({ sizemargin: 90, sizeHeight: "130" });
         }
         else if (isMobile) {
+            setsizeofweb({ sizemargin: 210, sizeHeight: "130" });
 
-            setsizeofweb(210);
         }
-    }, [isMobile, NestHub, NestHubmax, isTablet, isDesktop])
-
-
+    }, [isMobile, isTablet, isDesktop])
     const getdata = async () => {
         const response = await axios.get(`https://api.aladhan.com/v1/timingsByCity?city=${contary.apicity}&country=Algeria`);
         settiming(response.data.data.timings)
@@ -176,7 +167,7 @@ export default function Contextmain() {
     };
     return (
         <div >
-            <Grid container spacing={6} marginTop={sizeofweb} >
+            <Grid container spacing={6} marginTop={sizeofweb.sizemargin} >
                 <Grid size={6} >
                     <div >
                         <h1>{contary.displaycity}</h1>
@@ -199,14 +190,14 @@ export default function Contextmain() {
                 sx={{ flexWrap: 'wrap' }}
                 style={{ marginTop: "60px" }}
             >
-                <Prayer img="https://al-imen.com/cdn/shop/articles/salat-al-fajr-pour-debuter-votre-journee-avec-spiritualite-120995.png?v=1744211536" salat="الفجر" time={timing.Fajr} />
-                <Prayer img="https://al-imen.com/cdn/shop/articles/salat-doha-le-secret-matinal-pour-recharger-votre-spiritualite-quotidienne-568421.png?v=1744211531" salat="الظهر" time={timing.Dhuhr} />
-                <Prayer img="https://al-imen.com/cdn/shop/articles/salat-asr-votre-guide-complet-pour-cultiver-la-paix-interieure-874820.png?v=1744211542" salat="العصر" time={timing.Asr} />
-                <Prayer img="https://al-imen.com/cdn/shop/articles/salat-al-fajr-pour-debuter-votre-journee-avec-spiritualite-120995.png?v=1744211536" salat="المغرب " time={timing.Maghrib} />
-                <Prayer img="https://al-imen.com/cdn/shop/articles/salat-icha-pour-cloturer-votre-journee-803487.png?v=1744211526" salat="العشاء" time={timing.Isha} />
+                <Prayer img="https://al-imen.com/cdn/shop/articles/salat-al-fajr-pour-debuter-votre-journee-avec-spiritualite-120995.png?v=1744211536" salat="الفجر" time={timing.Fajr} sizeheight={sizeofweb.sizeHeight} />
+                <Prayer img="https://al-imen.com/cdn/shop/articles/salat-doha-le-secret-matinal-pour-recharger-votre-spiritualite-quotidienne-568421.png?v=1744211531" salat="الظهر" time={timing.Dhuhr} sizeheight={sizeofweb.sizeHeight} />
+                <Prayer img="https://al-imen.com/cdn/shop/articles/salat-asr-votre-guide-complet-pour-cultiver-la-paix-interieure-874820.png?v=1744211542" salat="العصر" time={timing.Asr} sizeheight={sizeofweb.sizeHeight} />
+                <Prayer img="https://al-imen.com/cdn/shop/articles/salat-al-fajr-pour-debuter-votre-journee-avec-spiritualite-120995.png?v=1744211536" salat="المغرب " time={timing.Maghrib} sizeheight={sizeofweb.sizeHeight} />
+                <Prayer img="https://al-imen.com/cdn/shop/articles/salat-icha-pour-cloturer-votre-journee-803487.png?v=1744211526" salat="العشاء" time={timing.Isha} sizeheight={sizeofweb.sizeHeight} />
             </Stack>
             <Stack justifyContent={'center'} alignItems={'center'} style={{ marginTop: "70px", marginBottom: "10px" }}>
-                <FormControl sx={{ width: "30%" }}>
+                <FormControl sx={{ width: "50%" }}>
                     <InputLabel id="demo-simple-select-label" style={{ color: "white" }} >المدينة</InputLabel>
                     <Select
                         value={contary.apicity}
@@ -222,7 +213,6 @@ export default function Contextmain() {
                     </Select>
                 </FormControl>
             </Stack>
-            <img src='/public/img/Dhuhr.png' />
         </div >
     );
 }
